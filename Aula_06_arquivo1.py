@@ -1,52 +1,57 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import cv2
 
-from PIL import Image
+imagem = cv2.imread('Cachorro_Golden.jpeg')
 
-imagem = Image.open('Cachorro_Golden_Girado.jpeg')
-
-#print(type(imagem))
+print(type(imagem))
 
 # plt.imshow(imagem)
 #
 # plt.show()
 
-#imagem_vetor = np.asarray(imagem)
+nova_imagem = cv2.cvtColor(imagem, cv2.COLOR_BGR2RGB)
 
-#print(imagem_vetor.shape)
-
-# redimensionar_imagem = imagem.resize((320, 480))
-#
-# #print(imagem_vetor.shape)
-#
-# plt.imshow(redimensionar_imagem)
+# plt.imshow(nova_imagem)
 #
 # plt.show()
 
-#print(redimensionar_imagem.size)
+print(nova_imagem.shape)
 
-largura_atual, altura_atual = imagem.size
+redimensionada_imagem = cv2.resize(nova_imagem, (640, 480))
 
-proporcao_largura = 1.0
-proporcao_altura = 1.0
+# plt.imshow(redimensionada_imagem)
+#
+# plt.show()
 
-nova_largura = int(largura_atual * proporcao_largura)
-nova_altura = int(altura_atual * proporcao_altura)
+print(redimensionada_imagem.shape)
 
-outra_imagem = imagem.resize((nova_largura, nova_altura))
+largura = 0.5
+
+altura = 0.5
+
+outra_imagem = cv2.resize(nova_imagem, (0, 0), nova_imagem, largura, altura)
 
 # plt.imshow(outra_imagem)
 #
 # plt.show()
 
-imagem_girada = imagem.rotate(180)
+print(outra_imagem.shape)
 
-plt.imshow(imagem_girada)
-plt.show()
+imagem_girada = cv2.flip(nova_imagem, 0)
 
-imagem_girada.save('Cachorro_Golden_Girado.jpeg')
+# plt.imshow(imagem_girada)
+#
+# plt.show()
 
-img = plt.figure(figsize=(10, 8))
+cv2.imwrite('Cachorro_Golden_MODIFICADO.jpeg', imagem)
+
+cv2.imwrite('Cachorro_Golden_Girado.jpeg', imagem_girada)
+
+img = plt.figure(figsize=(10, 10))
+
 ax = img.add_subplot(111)
+
 ax.imshow(imagem_girada)
+
 plt.show()
