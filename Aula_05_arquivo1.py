@@ -1,14 +1,24 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import cv2
 from PIL import Image
 
-imagem = Image.open('Cachorro_Golden.jpeg')
+imagem = cv2.imread('Cachorro_Golden.jpeg')
 
-#imagem_escala_cinza = plt.imread('Cachorro_Golden.jpeg')
+print(type(imagem))
 
-imagem_vetor = np.asarray(imagem)
+print(imagem.shape)
 
-plt.imshow(imagem_vetor[:, :, 0], cmap='gray')
+corrigi_imagem = cv2.cvtColor(imagem, cv2.COLOR_BGR2RGB)
+
+# plt.imshow(corrigi_imagem)
+#
+# plt.show()
+
+imagem_escala_cinza = cv2.imread('Cachorro_Golden.jpeg', cv2.IMREAD_GRAYSCALE)
+
+plt.imshow(imagem_escala_cinza, cmap='gray')
+
+plt.imshow(imagem_escala_cinza, cmap='magma')
 
 plt.show()
