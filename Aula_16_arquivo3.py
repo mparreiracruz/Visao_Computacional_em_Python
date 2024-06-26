@@ -39,5 +39,19 @@ for match1, match2 in matches:
 print(len(good))
 
 flann_matches = cv2.drawMatchesKnn(leite_condensado, kp1, pratileira_leite, kp2, good, None, flags=2)
+apresentaImg(flann_matches)
+
+matchesMask = [[0, 0]for i in range(len(matches))]
+
+print(matchesMask)
+
+for i, (match1, match2) in enumerate(matches):
+    if match1.distance < 0.75 * match2.distance:
+        matchesMask[i] = [1, 0]
+
+draw_params = dict(matchColor=(0, 0, 255), singlePointColor=(255, 0, 0), matchesMask = matchesMask, flags=0)
+
+flann_matches = cv2.drawMatchesKnn(leite_condensado, kp1, pratileira_leite, kp2, matches, None, **draw_params)
 
 apresentaImg(flann_matches)
+
